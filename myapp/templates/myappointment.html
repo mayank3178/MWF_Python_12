@@ -1,0 +1,109 @@
+{% extends 'header.html' %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+</head>
+<body>
+
+  <!-- Back to top button -->
+  <div class="back-to-top"></div>
+
+
+  <div class="page-banner overlay-dark bg-image" style="background-image: url({% static 'img/bg_image_1.jpg' %});">
+    <div class="banner-section">
+      <div class="container text-center wow fadeInUp">
+        <nav aria-label="Breadcrumb">
+          <ol class="breadcrumb breadcrumb-dark bg-transparent justify-content-center py-0 mb-2">
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">My Appointment</li>
+          </ol>
+        </nav>
+        <h1 class="font-weight-normal">My Appointment</h1>
+      </div> <!-- .container -->
+    </div> <!-- .banner-section -->
+  </div> <!-- .page-banner -->
+
+   <section id="contact">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="contact-form">
+              <div class="section-heading">
+                <h2>My Appointment</h2>
+                <div class="line"></div>
+              </div>
+              
+              <p>
+                {% if msg %}
+                  <b style="color:blue;">{{msg}}</b>
+                {% endif %}
+              </p>
+              <table border="5" width="100%" cellpadding="10px" cellspacing="10px">
+                <tr>
+                  <th>Sr. No</th>
+                  <th>Doctor Name</th>
+                  <th>Patient Name</th>
+                  <th>Date</th>
+                  <th>Time</th>
+                  <th>Health Issue</th>
+                  <th>Prescription</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+                {% for i in appointment %}
+                <tr>
+                  <td>{{i.id}}</td>
+                  <td>{{i.doctor.doctor.fname}}</td>
+                  <td>{{i.patient.fname}}</td>
+                  <td>{{i.date}}</td>
+                  <td>{{i.time}}</td>
+                  <td>{{i.health_issue}}</td>
+                  <td>{{i.prescription}}</td>
+                  <td>{{i.status}}</td>
+                  <td>
+                    <form method="get" action="{% url 'patient_cencel_appoinment' pk=i.pk %}">
+                      {% csrf_token %}
+                      {% if i.status == "pending" %}
+                        <input type="submit" name="action" value="Cancel">
+                      {% elif i.status == "completed" %}
+                        <input type="submit" name="action" value="Completed" disabled>
+                      {% else %}
+                        <input type="submit" name="action" value="{{i.status}}" disabled>
+                      {% endif %}
+                    </form>
+                  </td>
+                </tr>
+                {% endfor %}
+              </table>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+      
+    </section>
+  
+  <div class="page-section banner-home bg-image" style="background-image: url({% static 'img/banner-pattern.svg' %});">
+    <div class="container py-5 py-lg-0">
+      <div class="row align-items-center">
+        <div class="col-lg-4 wow zoomIn">
+          <div class="img-banner d-none d-lg-block">
+            <img src="{% static 'img/mobile_app.png' %}" alt="">
+          </div>
+        </div>
+        <div class="col-lg-8 wow fadeInRight">
+          <h1 class="font-weight-normal mb-3">Get easy access of all features using One Health Application</h1>
+          <a href="#"><img src="{% static 'img/google_play.svg' %}" alt=""></a>
+          <a href="#" class="ml-2"><img src="{% static 'img/app_store.svg' %}" alt=""></a>
+        </div>
+      </div>
+    </div>
+  </div> <!-- .banner-home -->
+
+  
+</body>
+</html>
+{% endblock%}

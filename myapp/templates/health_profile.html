@@ -1,0 +1,109 @@
+{% extends 'header.html' %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+</head>
+<body>
+
+  <!-- Back to top button -->
+  <div class="back-to-top"></div>
+
+  
+
+  <div class="page-banner overlay-dark bg-image" style="background-image: url({% static 'img/bg_image_1.jpg' %});">
+    <div class="banner-section">
+      <div class="container text-center wow fadeInUp">
+        <nav aria-label="Breadcrumb">
+          <ol class="breadcrumb breadcrumb-dark bg-transparent justify-content-center py-0 mb-2">
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Health Profile</li>
+          </ol>
+        </nav>
+        <h1 class="font-weight-normal">Health Profile</h1>
+      </div> <!-- .container -->
+    </div> <!-- .banner-section -->
+  </div> <!-- .page-banner -->
+
+  <div class="page-section">
+    <div class="container">
+      <h1 class="text-center wow fadeInUp">Health Profile</h1>
+       <p>
+          {% if msg %}
+            <b style="color:blue;">{{msg}}</b>
+          {% endif %}
+        </p>
+      <form class="contact-form mt-5" method="post" action="{% url 'health_profile' %}">
+        {% csrf_token %}
+        <div class="row mb-3">
+          <div class="col-sm-6 py-2 wow fadeInLeft">
+            <label for="fristName">Blood Group</label>
+            <input type="text" id="fName" class="form-control" placeholder="Blood Group.." name="blood_group" value="{{health_profile.blood_group}}">
+          </div>
+          <div class="col-sm-6 py-2 wow fadeInRight">
+            <label for="weight">Weight</label>
+            <input type="text" id="weight" class="form-control" placeholder="weight.." name="weight" value="{{health_profile.weight}}">
+          </div>
+          <div class="col-sm-6 py-2 wow fadeInUp">
+            <select class="col-sm-6 py-2 wow fadeInUp" name="diabetes">
+              {% if health_profile.diabetes == True %}
+              <option>----Diabetes----</option>
+              <option value="yes" selected>Yes</option>
+              <option value="no">No</option>
+              {% elif health_profile.diabetes == False %}
+              <option>----Diabetes----</option>
+              <option value="yes">Yes</option>
+              <option value="no" selected>No</option>
+              {% else %}
+              <option>----Diabetes----</option>
+              <option value="yes">Yes</option>
+              <option value="no">No</option>
+              {% endif %}
+            </select>
+          </div>
+          <div class="col-sm-6 py-2 wow fadeInUp">
+            <select class="col-sm-6 py-2 wow fadeInUp" name="blood_pressure">
+              {% if health_profile.blood_pressure == True %}
+              <option>----Blood Pressure----</option>
+              <option value="yes" selected>Yes</option>
+              <option value="no">No</option>
+              {% elif health_profile.blood_pressure == False %}
+              <option>----Blood Pressure----</option>
+              <option value="yes">Yes</option>
+              <option value="no" selected>No</option>
+              {% else %}
+              <option>----Blood Pressure----</option>
+              <option value="yes">Yes</option>
+              <option value="no">No</option>
+              {% endif %}
+            </select>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary wow zoomIn">Update Health Profile</button>
+      </form>
+    </div>
+  </div>
+
+
+  <div class="page-section banner-home bg-image" style="background-image: url({% static 'img/banner-pattern.svg' %});">
+    <div class="container py-5 py-lg-0">
+      <div class="row align-items-center">
+        <div class="col-lg-4 wow zoomIn">
+          <div class="img-banner d-none d-lg-block">
+            <img src="{% static 'img/mobile_app.png' %}" alt="">
+          </div>
+        </div>
+        <div class="col-lg-8 wow fadeInRight">
+          <h1 class="font-weight-normal mb-3">Get easy access of all features using One Health Application</h1>
+          <a href="#" class="ml-2"><img src="{% static 'img/app_store.svg' %}" alt=""></a>
+        </div>
+      </div>
+    </div>
+  </div> <!-- .banner-home -->
+
+  
+</body>
+</html>
+{% endblock%}

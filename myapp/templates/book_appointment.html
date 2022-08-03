@@ -1,0 +1,107 @@
+{% extends 'header.html' %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+</head>
+<body>
+
+  <!-- Back to top button -->
+  <div class="back-to-top"></div>
+
+ 
+
+  <div class="page-banner overlay-dark bg-image" style="background-image: url(../assets/img/bg_image_1.jpg);">
+    <div class="banner-section">
+      <div class="container text-center wow fadeInUp">
+        <nav aria-label="Breadcrumb">
+          <ol class="breadcrumb breadcrumb-dark bg-transparent justify-content-center py-0 mb-2">
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Appointment</li>
+          </ol>
+        </nav>
+        <h1 class="font-weight-normal">Make an Appointment</h1>
+      </div> <!-- .container -->
+    </div> <!-- .banner-section -->
+  </div> <!-- .page-banner -->
+
+  <div class="page-section">
+    <div class="container">
+      <h1 class="text-center wow fadeInUp">Make an Appointment</h1>
+      <br>
+       <p>
+          {% if msg %}
+            <b style="color:blue;">{{msg}}</b>
+          {% endif %}
+        </p>
+      <form class="main-form" method="post" action="{% url 'book_appointment' pk=doctor.pk %}">
+        {% csrf_token %}
+        <h3>Doctor details</h3>
+        <div class="row mt-5 ">
+          <div class="col-12 col-sm-6 py-2 wow fadeInLeft">
+            <input type="text" class="form-control" name="fname" value="{{doctor.doctor.fname}}">
+          </div>
+          <div class="col-12 col-sm-6 py-2 wow fadeInRight">
+            <input type="text" class="form-control" name="lname" value="{{doctor.doctor.lname}}">
+          </div>
+          <div class="col-12 col-sm-6 py-2 wow fadeInLeft" data-wow-delay="300ms">
+            <input type="text" class="form-control" name="doctor_speciality" value="{{doctor.doctor_speciality}}">
+          </div>
+          
+  <div class="page-section">
+    <div class="container">      
+      <form class="main-form">
+        <h3>Patient details</h3>
+        <div class="row mt-5 ">
+          <div class="col-12 col-sm-6 py-2 wow fadeInLeft">
+            <input type="text" class="form-control" name="fname" value="{{ patient.fname }}">
+          </div>
+          <div class="col-12 col-sm-6 py-2 wow fadeInRight">
+            <input type="text" class="form-control" name="lname" value="{{ patient.lname }}">
+          </div>
+          <div class="col-12 col-sm-6 py-2 wow fadeInLeft" data-wow-delay="300ms">
+            <input type="date" class="form-control"  name="date">
+          </div>
+          <div class="col-12 col-sm-6 py-2 wow fadeInRight" data-wow-delay="300ms">
+            <select name="time" id="departement"class="custom-select">
+              <option value="general">Time Slot</option>
+              <option value="9:00 to 10:00">9:00 to 10:00</option>
+              <option value="10:00 to 11:00">10:00 to 11:00</option>
+              <option value="11:00 to 12:00">11:00 to 12:00</option>
+            </select>
+          </div>
+          <div class="col-12 py-2 wow fadeInUp" data-wow-delay="300ms">
+            <textarea name="Health_issue" id="message" class="form-control" rows="6" ></textarea>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary mt-3 wow zoomIn">Confrim Appointment</button>
+      </form>
+    </div> <!-- .container -->
+  </div> <!-- .page-section -->
+  
+
+  <div class="page-section banner-home bg-image" style="background-image: url({% static 'img/banner-pattern.svg' %});">
+    <div class="container py-5 py-lg-0">
+      <div class="row align-items-center">
+        <div class="col-lg-4 wow zoomIn">
+          <div class="img-banner d-none d-lg-block">
+            <img src="{% static 'img/mobile_app.png' %}" alt="">
+          </div>
+        </div>
+        <div class="col-lg-8 wow fadeInRight">
+          <h1 class="font-weight-normal mb-3">Get easy access of all features using One Health Application</h1>
+          <a href="#"><img src="{% static 'img/google_play.svg' %}" alt=""></a>
+          <a href="#" class="ml-2"><img src="{% static 'img/app_store.svg' %}" alt=""></a>
+        </div>
+      </div>
+    </div>
+  </div> <!-- .banner-home
+ -->
+ 
+  
+</body>
+</html>
+{% endblock%}
